@@ -1,5 +1,6 @@
 require 'sinatra'
 
 get '/' do
-  "Hello, world"
+  puts 'log test'
+  "Hello, TradeWars"
 end
