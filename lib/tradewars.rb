@@ -11,7 +11,7 @@ sectors = db['sectors']
 get '/' do
   puts 'log test'
   sector = sectors.find_one "sector" => 1
-  sector["warps"]
+  sector["warps"].to_s
 end
 
 get '/bigbang' do
