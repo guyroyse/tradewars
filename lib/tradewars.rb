@@ -11,6 +11,7 @@ sectors = db['sectors']
 
 get '/sector/:sector' do |num|
   sector = sectors.find("sector" => num.to_i, :fields => ["sector", "warps"]).to_a[0]
+  puts sector
   sector.to_json
 end
 
