@@ -10,7 +10,7 @@ db = conn.db(uri.path.gsub(/^\//, ''))
 sectors = db['sectors']
 
 get '/sector/:sector' do |num|
-  sector = sectors.find_one { "sector" => num.to_i }, { :fields => ["sector", "warps"] }
+  sector = sectors.find_one({ "sector" => num.to_i }, { :fields => ["sector", "warps"] })
   puts sector
   sector.to_json
 end
