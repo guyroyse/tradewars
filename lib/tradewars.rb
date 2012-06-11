@@ -7,6 +7,8 @@ uri = URI.parse(ENV['MONGOHQ_URL'])
 conn = Mongo::Connection.from_uri(ENV['MONGOHQ_URL'])
 db = conn.db(uri.path.gsub(/^\//, ''))
 
+$tradewars_logging = true
+
 get '/' do
   redirect '/index.html'
 end
@@ -14,7 +16,7 @@ end
 get '/sector/:sector' do |num|
   sectors = db['sectors']
   sector = sectors.find_one({ "sector" => num.to_i }, { :fields => { "_id" => 0, "sector" => 1, "warps" => 1 } })
-  puts sector
+  log sector
   content_type 'application/json'
   sector.to_json
 end
@@ -31,4 +33,8 @@ get '/bigbang' do
   sectors.insert "sector" => 6, "warps" => [1, 5, 7]
   sectors.insert "sector" => 7, "warps" => [1, 2, 6]
   "Universe generated"
+end
+
+def log s
+  puts s if $tradewars_logging
 end
